@@ -1,6 +1,6 @@
 # Saner-deep-registration
 
-## TL,DR <a href=self>arXiv</a>
+## TL,DR <a href="misc/Towards-Saner-Deep-Image-Registration.pdf" target="_blank">Paper</a>
 We propose a novel regularization-based sanity-enforcer method that imposes *two sanity checks* on the deep registration model to reduce its inverse consistency errors and increase its discriminative power simultaneously.
 
 ## Datasets
@@ -22,7 +22,7 @@ Trained models can be found [<a href="https://drive.google.com/drive/folders/1Ph
 @inproceedings{duan2023sanity,
   title={Towards Saner Deep Image Registration},
   author={Duan, Bin and Zhong, Ming and Yan, Yan},
-  booktitle={IEEE/CVF International Conference on Computer Vision (ICCV)},
+  booktitle={ICCV},
   year={2023}
 }
 ```
