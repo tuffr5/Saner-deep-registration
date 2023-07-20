@@ -1,6 +1,6 @@
 # Saner-deep-registration
 
-## TL,DR <a href="misc/Towards-Saner-Deep-Image-Registration.pdf" target="_blank">Paper</a>
+## TL,DR <a href="https://arxiv.org/pdf/2307.09696.pdf" target="_blank">Arxiv</a>
 We propose a novel regularization-based sanity-enforcer method that imposes *two sanity checks* on the deep registration model to reduce its inverse consistency errors and increase its discriminative power simultaneously.
 
 ## Datasets
