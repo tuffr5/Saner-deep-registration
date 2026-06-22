@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Towards Saner Deep Image Registration</title>
+  <meta name="description" content="Towards Saner Deep Image Registration (ICCV 2023) — a regularization-based sanity-enforcer with self-sanity and cross-sanity checks for learning-based deep image registration.">
+
+  <meta property="og:title" content="Towards Saner Deep Image Registration (ICCV 2023)">
+  <meta property="og:description" content="Two sanity checks that reduce inverse-consistency errors and increase discriminative power of deep registration models, with theoretical guarantees.">
+  <meta property="og:image" content="static/images/performance.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+
+<!-- Hero / title -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Towards Saner Deep Image Registration</h1>
+      <h2 class="subtitle is-4 conference">ICCV 2023</h2>
+
+      <div class="publication-authors">
+        <span class="author-block"><a href="https://tuffr5.github.io/" target="_blank">Bin Duan</a>,</span>
+        <span class="author-block">Ming Zhong,</span>
+        <span class="author-block">Yan Yan</span>
+      </div>
+
+      <div class="publication-affiliations">
+        <span class="affiliation-block">Illinois Institute of Technology, Chicago, IL, USA</span>
+      </div>
+
+      <!-- Link buttons -->
+      <div class="publication-links">
+        <span class="link-block">
+          <a href="static/pdf/Saner_Deep_Registration_ICCV2023.pdf" target="_blank" class="button is-dark is-rounded">
+            <span class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper</span>
+          </a>
+        </span>
+        <span class="link-block">
+          <a href="https://arxiv.org/abs/2307.09696" target="_blank" class="button is-dark is-rounded">
+            <span class="icon"><i class="ai ai-arxiv"></i></span><span>arXiv</span>
+          </a>
+        </span>
+        <span class="link-block">
+          <a href="https://github.com/tuffr5/Saner-deep-registration" target="_blank" class="button is-dark is-rounded">
+            <span class="icon"><i class="fab fa-github"></i></span><span>Code</span>
+          </a>
+        </span>
+        <span class="link-block">
+          <a href="#bibtex" class="button is-dark is-rounded">
+            <span class="icon"><i class="fas fa-quote-right"></i></span><span>BibTeX</span>
+          </a>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Teaser -->
+<section class="section teaser-section">
+  <div class="container is-max-desktop">
+    <figure class="image">
+      <img src="static/images/performance.png" alt="FV–SDice–Dice comparison of deep registrations on IXI.">
+    </figure>
+    <p class="caption">
+      <b>Figure 1.</b> FV–SDice–Dice comparison of deep registrations on the IXI brain dataset.
+      The vertical axis is FV (% of folded voxels), the horizontal axis is SDice (Self-Dice), and the circle size is Dice.
+      Both sanity-checked models (<i>VM-ESC</i> and <i>TMBS-ESC</i>) achieve better diffeomorphism, competitive
+      registration performance, and significantly improved self-sanity, compared to other models — including
+      methods with inverse consistency (ICNet, ICON).
+    </p>
+  </div>
+</section>
+
+<!-- Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3 has-text-centered">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            With recent advances in computing hardware and surges of deep-learning architectures, learning-based
+            deep image registration methods have surpassed their traditional counterparts, in terms of metric
+            performance and inference time. However, these methods focus on improving performance measurements such
+            as Dice, resulting in less attention given to model behaviors that are equally desirable for
+            registrations, especially for medical imaging. This paper investigates these behaviors for popular
+            learning-based deep registrations under a sanity-checking microscope. We find that most existing
+            registrations suffer from low inverse consistency and nondiscrimination of identical pairs due to overly
+            optimized image similarities. To rectify these behaviors, we propose a novel regularization-based
+            sanity-enforcer method that imposes two sanity checks on the deep model to reduce its inverse consistency
+            errors and increase its discriminative power simultaneously. Moreover, we derive a set of theoretical
+            guarantees for our sanity-checked image registration method, with experimental results supporting our
+            theoretical findings and their effectiveness in increasing the sanity of models without sacrificing any
+            performance.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contributions -->
+<section class="section has-background-light-grey">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Contributions</h2>
+    <div class="content">
+      <ol>
+        <li>We find that despite better performance such as Dice, most models produce non-smooth transformations
+          and are less aware of sanity errors due to over-optimization on image similarities.</li>
+        <li>We propose two novel <b>sanity checks</b> for the registration model training and derive the
+          corresponding theoretical foundations.</li>
+        <li>Our sanity checks not only help reduce the sanity errors of existing models but also assist them in
+          producing more regular maps without diffeomorphic add-ons.</li>
+        <li>Our sanity checks are <b>model-agnostic</b>. They can be deployed to various models and are only needed
+          during training, so they generate no side effects for inference.</li>
+        <li>Experiments on <b>IXI</b>, <b>OASIS</b>, and <b>BraTSReg</b> verify our findings and show on-par or
+          better performance.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- Method -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Method</h2>
+    <figure class="image">
+      <img src="static/images/pipeline.png" alt="Sanity-checked training pipeline.">
+    </figure>
+    <p class="caption">
+      <b>Training a sanity-checked model.</b> &#9416; denotes spatial warping. A <b>shared model</b> predicts
+      displacement maps in both directions. The <b>self-sanity check</b> (&#8466;<sub>self</sub>) forces zero
+      displacement for identical pairs (<i>g</i><sup>a&#8594;a</sup> = 0), increasing discriminative power.
+      The <b>cross-sanity check</b> (&#8466;<sub>cross</sub>) enforces a relaxed inverse consistency between the
+      forward and back-projected maps, reducing inverse-consistency errors. Both are combined with the standard
+      similarity (&#8466;<sub>sim</sub>) and regularization (&#8466;<sub>reg</sub>) losses, and are needed only at
+      training time.
+    </p>
+
+    <div class="columns is-centered method-takeaways">
+      <div class="column">
+        <div class="box">
+          <h3 class="title is-5">Self-sanity check</h3>
+          <p>Restricts the mapping to output zero displacement for identical pairs, so the model stops
+            hallucinating motion where there is none — improving discrimination of identical pairs.</p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="box">
+          <h3 class="title is-5">Cross-sanity check</h3>
+          <p>A relaxed, data-driven inverse-consistency constraint with error tolerance (&#945;,&#946;). It allows
+            occlusions/topological changes while keeping forward/backward maps consistent, with a proven upper
+            bound on the error.</p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="box">
+          <h3 class="title is-5">Theoretical guarantees</h3>
+          <p>A unique minimizer for a single image pair, and a provable upper bound between the optimal and
+            sanity-checked minimizers that guides the choice of loss weights.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Key Theorem -->
+<section class="section has-background-light-grey">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Key Theorem</h2>
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="theorem-box">
+          <p class="theorem-head">Theorem 1 &mdash; Relaxed registration via cross-sanity check.</p>
+          <p>
+            An ideal symmetric registration meets $\varphi^{a\rightarrow b}\circ\varphi^{b\rightarrow a}=\mathit{id}$.
+            Then, a cross-sanity-checked registration is a <em>relaxed</em> solution to this ideal registration,
+            satisfying
+          </p>
+          <p class="theorem-eq">
+            $$\big\lVert\, g^{a\rightarrow b}+\tilde{g}^{b\rightarrow a}\,\big\rVert_2^2
+              \;<\; \frac{\beta(2-\alpha)\,N}{1-\alpha},$$
+          </p>
+          <p>
+            where $0<\alpha<1$, $\beta>0$, and $N$ is the total number of voxels.
+          </p>
+        </div>
+        <p class="content has-text-justified mt-4">
+          <b>Why it matters.</b> Strict inverse consistency forces
+          $g^{a\rightarrow b}+\tilde{g}^{b\rightarrow a}=0$ everywhere, which is impractical when real correspondences
+          are missing (e.g. occlusions or tumor regions). Theorem&nbsp;1 shows the cross-sanity check instead admits a
+          whole <em>enclosed set</em> of valid solutions &mdash; a ball of radius
+          $\sqrt{\beta(2-\alpha)N/(1-\alpha)}$ &mdash; controlled by the tolerance parameters $\alpha$ and $\beta$.
+          This relaxed constraint keeps forward/backward maps consistent while staying close to the optimal minimizer
+          (a loyalty bound of $2\lambda_c(1-\alpha)\beta N$), which is exactly why the sanity checks improve regularity
+          and inverse consistency <em>without</em> sacrificing Dice.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Results</h2>
+
+    <figure class="image">
+      <img src="static/images/ixi.png" alt="Qualitative comparisons on IXI.">
+    </figure>
+    <p class="caption">
+      <b>Qualitative comparisons on IXI.</b> Columns: moving/fixed pair, warped grids in both directions, and the
+      self-sanity error (SSE) and cross-sanity error (CSE) maps (maximum value marked top-left). Our sanity-checked
+      models produce more regular deformation maps and dramatically lower sanity errors.
+    </p>
+
+    <figure class="image mt-5">
+      <img src="static/images/oasis.png" alt="Comparisons on the OASIS validation set.">
+    </figure>
+    <p class="caption">
+      <b>Comparisons on the OASIS validation set.</b> Our method produces more regular maps for all input image
+      pairs while matching state-of-the-art Dice.
+    </p>
+
+    <div class="content has-text-centered mt-5">
+      <p>Across <b>IXI</b>, <b>OASIS</b>, and <b>BraTSReg</b>, adding the sanity checks reduces self-/cross-sanity
+        errors and folded voxels while keeping Dice on par with — or better than — strong baselines such as
+        VoxelMorph and TransMorph.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">BibTeX</h2>
+    <pre class="bibtex"><code>@inproceedings{duan2023sanity,
+  title     = {Towards Saner Deep Image Registration},
+  author    = {Duan, Bin and Zhong, Ming and Yan, Yan},
+  booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
+  year      = {2023}
+}</code></pre>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container has-text-centered">
+    <p class="is-size-7">
+      Page template adapted from the
+      <a href="https://github.com/nerfies/nerfies.github.io" target="_blank">Nerfies</a> project page
+      (<a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a>).
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
