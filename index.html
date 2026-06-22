@@ -215,8 +215,45 @@
   </div>
 </section>
 
-<!-- Results -->
+<!-- Training: eliminating the errors -->
 <section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Eliminating Errors During Training</h2>
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <p class="content has-text-justified">
+          The two sanity checks are folded into a single training objective alongside the usual similarity and
+          regularization terms:
+        </p>
+        <p class="theorem-eq">
+          $$\mathcal{L}_{\text{total}} \;=\; \mathcal{L}_{\text{sim}}
+            \;+\; \lambda_{r}\,\mathcal{L}_{\text{reg}}
+            \;+\; \lambda_{s}\,\mathcal{L}_{\text{self}}
+            \;+\; \lambda_{c}\,\mathcal{L}_{\text{cross}}.$$
+        </p>
+        <p class="content has-text-justified">
+          The cross-sanity loss is computed through a <b>binary violator mask</b> $\mathcal{M}$ that flags every voxel
+          breaking the cross-sanity check, so the penalty is applied <em>only</em> to the points that are still
+          inconsistent (visualized as occlusion masks). As optimization proceeds, the model drives these violators
+          toward zero &mdash; literally erasing the sanity errors over the course of training.
+        </p>
+      </div>
+    </div>
+
+    <figure class="image">
+      <img src="static/images/mask.png" alt="Evolution of the cross-sanity violator masks during training.">
+    </figure>
+    <p class="caption">
+      <b>Mask evolution during training.</b> White pixels are voxels violating the cross-sanity check
+      (top: $\mathcal{M}^{m\rightarrow f}$, bottom: $\mathcal{M}^{f\rightarrow m}$). From left to right (training
+      progress), the violators steadily vanish &mdash; the self-/cross-sanity errors are eliminated without extra
+      cost at inference time.
+    </p>
+  </div>
+</section>
+
+<!-- Results -->
+<section class="section has-background-light-grey">
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">Results</h2>
 
