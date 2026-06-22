@@ -127,6 +127,30 @@ figure.image img {
   background: #fafafa;
 }
 
+.qr-panel {
+  margin-bottom: 1.4rem;
+}
+
+.qr-code {
+  width: 140px;
+  height: 140px;
+  border: 1px solid #e3e6ea;
+  border-radius: 8px;
+  padding: 6px;
+  background: #fff;
+  transition: transform 0.15s ease;
+}
+
+.qr-code:hover {
+  transform: scale(1.04);
+}
+
+.qr-label {
+  margin-top: 0.5rem;
+  color: #5a5a5a;
+  letter-spacing: 0.02em;
+}
+
 .mt-5 {
   margin-top: 2.5rem;
 }
